@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Welcome to Miguel Martinez's site, a search engine for examples of my work in graphic design and web development. Find here my most outstanding projects."
+    />
+    <meta
+      name="keywords"
+      content="Miguel Martinez, graphic design, web development, portfolio"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Miguel Martinez" />
+    <!-- Bootstrap CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Briefcase Gambito Case</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-3">
+      <div class="container">
+        <a class="navbar-brand" href="/">MM</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#about"
+                >About me</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact me</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- main -->
+    <h1>Búsqueda de películas</h1>
+    <form id="search-form">
+      <label>
+        Título de la película:
+        <input type="text" name="query" />
+      </label>
+      <button type="submit">Buscar</button>
+    </form>
+    <ul id="results"></ul>
+    <script>
+      const searchForm = document.getElementById('search-form');
+      const resultsList = document.getElementById('results');
+
+      searchForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const query = event.target.elements.query.value;
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=YOUR_API_KEY&query=${query}`);
+        const data = await response.json();
+        const results = data.results;
+        resultsList.innerHTML = '';
+        results.forEach((result) => {
+          const listItem = document.createElement('li');
+          listItem.textContent = result.title;
+          resultsList.appendChild(listItem);
+        });
+      });
+    </script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
